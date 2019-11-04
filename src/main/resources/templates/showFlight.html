@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>显示所有航班</title>
+    <!-- 引入 jquery  引入boot starp-->
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/css/bootstrap-3.3.7-dist/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/template-web.js}"></script>
+    <script type="text/javascript" th:src="@{/js/showCity.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-striped">
+    <!--头-->
+             <thead>
+
+                 <tr id="cityShow">
+                     <script type="text/html" id="citys">
+
+                         <th style="font-size: 20px;color: #2e6da4">
+                               起飞城市：
+                               <select name="show" >
+                                      {{ each  data  city  }}
+                                   <option  class="divider" value="{{city.id}}">{{city.cityName}}</option>
+                                      {{/each}}
+                               </select>
+                           </th>
+
+                           <th>
+                               ———— ————
+                           </th>
+
+
+                           <th style="font-size: 20px;color: #4cae4c">
+                               到达城市：
+                               <select name="showx" >
+                                   {{ each  data  city  }}
+                                   <option  class="divider" value="{{city.id}}">{{city.cityName}}</option>
+                                   {{/each}}
+                               </select>
+                           </th>
+                         <th>
+                             <button onclick="verifyQuery()">查询!</button>
+                         </th>
+                     </script>
+                       </tr>
+
+
+             </thead>
+
+
+                       <tbody id="showFlight">
+                       <script type="text/html" id="flightData">
+
+                       {{ if flights[0] != null }}
+                      <div style="text-align: center"> <h2 style="color:red" >可购机票如下：</h2></div>
+                       <tr>
+                       <td>航班编号</td>
+                       <td>出发城市</td>
+                       <td>出发时间</td>
+                       <td>到达城市</td>
+                       <td>到达时间</td>
+                       </tr>
+                       {{ /if }}
+
+                       {{ if flights[0] == null }}
+                       <div style="text-align: center"> <h2 style="color:red" >没有到达该地的机票</h2></div>
+
+                       {{ /if }}
+
+
+                       {{ each flights flight index}}
+                       <tr>
+                           <td>
+                                {{flight.flightNO}}
+                           </td>
+
+                           <td>
+                               {{flights.chuFaName}}
+                           </td>
+
+
+                           <td>
+                                {{flight.departureTime}}
+                           </td>
+
+                           <td>
+                                {{flights.daoDaName}}
+                           </td>
+
+                           <td>
+                               {{flight.arrivalTime}}
+                           </td>
+                       </tr>
+                           {{ / each }}
+                       </script>
+                       </tbody>
+
+                       <!-- 底-->
+                       <tfoot>
+
+                       </tfoot>
+        </table>
+    </div>
+</body>
+</html>
